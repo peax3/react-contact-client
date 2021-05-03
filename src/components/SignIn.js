@@ -7,6 +7,10 @@ import Button from "@material-ui/core/Button";
 import Link from "@material-ui/core/Link";
 import Grid from "@material-ui/core/Grid";
 import { Box } from "@material-ui/core";
+
+import { connect } from "react-redux";
+import { signInUser } from "../manager/auth/authActions";
+
 import { validateEmail, validatePassword } from "../helpers/validator";
 
 const useStyles = makeStyles((theme) => ({
@@ -32,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const SignIn = () => {
+const SignIn = ({ signInUser }) => {
   const classes = useStyles();
 
   const INITIAL_STATE = {
@@ -117,7 +121,7 @@ const SignIn = () => {
       formValidation.fieldsWithError.length === 0
     ) {
       const body = { ...formValidation.fields };
-      // TODO - send data api
+      signInUser(body);
     }
   };
 
@@ -193,4 +197,4 @@ const SignIn = () => {
   );
 };
 
-export default SignIn;
+export default connect(null, { signInUser })(SignIn);

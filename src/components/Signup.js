@@ -8,6 +8,9 @@ import Link from "@material-ui/core/Link";
 import Grid from "@material-ui/core/Grid";
 import { Box } from "@material-ui/core";
 
+import { connect } from "react-redux";
+import { signUpUser } from "../manager/auth/authActions";
+
 import {
   validateName,
   validateEmail,
@@ -33,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Signup = () => {
+const Signup = ({ signUpUser }) => {
   const classes = useStyles();
 
   const INITIAL_STATE = {
@@ -131,15 +134,18 @@ const Signup = () => {
       }
     );
 
-    console.log(newState);
-
     // if all fields have been touched and there is no error
     if (
       formValidation.fieldsNotTouched.length === 0 &&
       formValidation.fieldsWithError.length === 0
     ) {
-      const body = { ...formValidation.fields };
-      // TODO - send data api
+      const { firstName, lastName, email, password } = formValidation.fields;
+      const body = {
+        fullName: `${firstName} ${lastName}`,
+        email,
+        password,
+      };
+      signUpUser(body);
     }
   };
 
@@ -262,4 +268,4 @@ const Signup = () => {
   );
 };
 
-export default Signup;
+export default connect(null, { signUpUser })(Signup);

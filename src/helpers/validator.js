@@ -19,8 +19,11 @@ export const validateName = (name) => {
   if (trimmedName === "") {
     return "Name is required";
   }
+  if (/\s/.test(trimmedName)) {
+    return "Invalid characters. Name should be a word";
+  }
   if (/[^a-zA-Z -]/.test(trimmedName)) {
-    return "Invalid characters";
+    return "Invalid characters. Only aphabets are allowed";
   }
 
   return null;
