@@ -1,15 +1,15 @@
 import axios from "axios";
 
-const instance = axios.create({
+const axiosInstance = axios.create({
   baseURL: "https://peax3contacts.herokuapp.com/api",
 });
 
-export const setAuthTOken = (token) => {
-  if (token) {
-    instance.defaults.headers.common["Authorization"] = token;
-  } else {
-    delete instance.defaults.headers.common["Authorization"];
-  }
+export const setAuthTokenInHeaders = (token) => {
+  axiosInstance.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 };
 
-export default instance;
+export const deleteAuthTokenFromHeaders = () => {
+  delete axiosInstance.defaults.headers.common["Authorization"];
+};
+
+export default axiosInstance;
