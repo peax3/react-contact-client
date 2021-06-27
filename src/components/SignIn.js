@@ -7,11 +7,12 @@ import Button from "@material-ui/core/Button";
 import Link from "@material-ui/core/Link";
 import Grid from "@material-ui/core/Grid";
 import { Box } from "@material-ui/core";
+import { Link as RouterLink } from "react-router-dom";
 
 import { connect } from "react-redux";
-import { signInUser } from "../manager/auth/authActions";
-
+import { signInUser, clearError } from "../manager/auth/authActions";
 import { validateEmail, validatePassword } from "../helpers/validator";
+import { useEffect } from "react";
 
 const useStyles = makeStyles((theme) => ({
   form: {
@@ -36,7 +37,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const SignIn = ({ signInUser }) => {
+const SignIn = ({
+  signInUser,
+  isAuthenticated,
+  clearError,
+  error,
+  history,
+  ...rest
+}) => {
   const classes = useStyles();
 
   const INITIAL_STATE = {
@@ -58,6 +66,16 @@ const SignIn = ({ signInUser }) => {
   };
 
   const [state, setState] = useState(INITIAL_STATE);
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      history.push("/contacts");
+    }
+
+    if (error) {
+      clearError();
+    }
+  }, [isAuthenticated, error, history]);
 
   const handleInputChange = (e) => {
     setState({
@@ -139,6 +157,11 @@ const SignIn = ({ signInUser }) => {
         <Typography component="h2" variant="h6" align="center">
           Sign In
         </Typography>
+        {error && (
+          <Typography variant="subtitle2" color="error" align="center">
+            {error}
+          </Typography>
+        )}
         <form className={classes.form}>
           <Grid container spacing={2}>
             <Grid item xs={12}>
@@ -188,7 +211,7 @@ const SignIn = ({ signInUser }) => {
       </Box>
       <Grid container justify="center">
         <Grid item>
-          <Link href="#" variant="body2">
+          <Link component={LinkBehaviour} variant="body2">
             Don't have an account? Sign up
           </Link>
         </Grid>
@@ -197,4 +220,14 @@ const SignIn = ({ signInUser }) => {
   );
 };
 
-export default connect(null, { signInUser })(SignIn);
+const LinkBehaviour = React.forwardRef((props, ref) => {
+  return <RouterLink ref={ref} to="/signup" {...props} />;
+});
+
+const mapStateToProps = (state) => ({
+  isLoading: state.authState.loading,
+  isAuthenticated: state.authState.isAuthenticated,
+  error: state.authState.error,
+});
+
+export default connect(mapStateToProps, { signInUser, clearError })(SignIn);

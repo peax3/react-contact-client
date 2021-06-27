@@ -1,0 +1,122 @@
+[
+  {
+    "_id": "606db9a5603c98388463a5e0",
+    "firstName": "Alicia",
+    "lastName": "keys",
+    "phone": "123445556",
+    "email": "aliciakeys@gmail.con",
+    "fullName": "Alicia keys"
+  },
+  {
+    "_id": "606db9a5603c98388463a5df",
+    "firstName": "Selena",
+    "lastName": "Gomez",
+    "phone": "0303452987724",
+    "email": "selenagomez@gmail.con",
+    "fullName": "Selena Gomez"
+  },
+  {
+    "_id": "606db9a5603c98388463a5dd",
+    "firstName": "Jennifer",
+    "lastName": "Lopez",
+    "phone": "11122233345",
+    "email": "jenniferlopez@gmail.con",
+    "fullName": "Jennifer Lopez"
+  },
+  {
+    "_id": "606db9a5603c98388463a5da",
+    "firstName": "Lady",
+    "lastName": "Gaga",
+    "phone": "77744556765",
+    "email": "ladygaga@gmail.con",
+    "fullName": "Lady Gaga"
+  },
+  {
+    "_id": "606db9a5603c98388463a5de",
+    "firstName": "Nicki",
+    "lastName": "minaj",
+    "phone": "77744556765",
+    "email": "nickiminaj@gmail.con",
+    "fullName": "Nicki minaj"
+  },
+  {
+    "_id": "606db9a5603c98388463a5db",
+    "firstName": "Katty",
+    "lastName": "Perry",
+    "phone": "0303452987724",
+    "email": "kattyperry@gmail.con",
+    "fullName": "Katty Perry"
+  },
+  {
+    "_id": "606db9a5603c98388463a5dc",
+    "firstName": "Britney",
+    "lastName": "Spears",
+    "phone": "123445556",
+    "email": "britneyspears@gmail.con",
+    "fullName": "Britney Spears"
+  },
+  {
+    "_id": "606db9a5603c98388463a5e1",
+    "firstName": "Harry",
+    "lastName": "Styles",
+    "phone": "0303452987724",
+    "email": "harrystyles@gmail.con",
+    "fullName": "Harry Styles"
+  },
+  {
+    "_id": "606db9a5603c98388463a5e2",
+    "firstName": "Miley",
+    "lastName": "cyrus",
+    "phone": "123445556",
+    "email": "mileycyrus@gmail.con",
+    "fullName": "Miley cyrus"
+  },
+  {
+    "_id": "606db9a5603c98388463a5e3",
+    "firstName": "One",
+    "lastName": "Direction",
+    "phone": "0303452987724",
+    "email": "onedirection@gmail.con",
+    "fullName": "One Direction"
+  },
+  {
+    "_id": "606db9a5603c98388463a5e5",
+    "firstName": "mariah",
+    "lastName": "carey",
+    "phone": "0303452987724",
+    "email": "mariahcarey@gmail.con",
+    "fullName": "mariah carey"
+  },
+  {
+    "_id": "606db9a5603c98388463a5e7",
+    "firstName": "Zayn",
+    "lastName": "Malik",
+    "phone": "123445556",
+    "email": "zaynmalik@gmail.con",
+    "fullName": "Zayn Malik"
+  },
+  {
+    "_id": "606db9a5603c98388463a5e6",
+    "firstName": "Cold",
+    "lastName": "Play",
+    "phone": "123445556",
+    "email": "coldplay@gmail.con",
+    "fullName": "Cold Play"
+  },
+  {
+    "_id": "606db9a5603c98388463a5d9",
+    "firstName": "Justin",
+    "lastName": "Bieber",
+    "phone": "11122233345",
+    "email": "justinbeiber@gmail.con",
+    "fullName": "Justin Bieber"
+  },
+  {
+    "_id": "606db9a5603c98388463a5e4",
+    "firstName": "Lil",
+    "lastName": "Wayne",
+    "phone": "123445556",
+    "email": "lilwayne@gmail.con",
+    "fullName": "Lil Wayne"
+  }
+]

@@ -1,19 +1,30 @@
-import axios, { setAuthTOken } from "../../api/axios";
-import { LOADING_TRUE, SIGNUP_SUCCESS, SIGNIN_SUCCESS } from "../constants";
+import axios, { setAuthTokenInHeaders } from "../../api/axios";
+import {
+  AUTHLOADING_TRUE,
+  SIGNUP_SUCCESS,
+  SIGNIN_SUCCESS,
+  LOADUSER,
+  SIGNIN_FAIL,
+  SIGNUP_FAIL,
+  CLEAR_ERROR,
+} from "../constants";
 
 export const signInUser = (body) => async (dispatch) => {
   try {
     setLoadingToTrue();
     dispatch(setLoadingToTrue());
+
     const res = await axios.post("/auth/login", body, {
       headers: {
         "Content-Type": "application/json",
       },
     });
+
     dispatch(signInSuccess(res.data.token));
-    setAuthTOken(res.data.token);
+
+    setAuthTokenInHeaders(res.data.token);
   } catch (error) {
-    console.log({ error });
+    dispatch(signInFail(error.response.data.message));
   }
 };
 
@@ -27,14 +38,35 @@ export const signUpUser = (body) => async (dispatch) => {
     });
     dispatch(signUpSuccess(res.data.token));
   } catch (error) {
-    console.log({ error });
+    const { response } = error;
+    dispatch(signUpFail(response.data.message));
   }
+};
+
+export const clearError = () => async (dispatch) => {
+  const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+  await delay(1000);
+  dispatch({ type: CLEAR_ERROR });
 };
 
 const signInSuccess = (token) => {
   return {
     type: SIGNIN_SUCCESS,
     token,
+  };
+};
+
+const signInFail = (error) => {
+  return {
+    type: SIGNIN_FAIL,
+    error,
+  };
+};
+
+const loadUser = (userId) => {
+  return {
+    type: LOADUSER,
+    userId,
   };
 };
 
@@ -45,8 +77,15 @@ const signUpSuccess = (token) => {
   };
 };
 
+const signUpFail = (error) => {
+  return {
+    type: SIGNIN_FAIL,
+    error,
+  };
+};
+
 const setLoadingToTrue = () => {
   return {
-    type: LOADING_TRUE,
+    type: AUTHLOADING_TRUE,
   };
 };

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import TextField from "@material-ui/core/TextField";
@@ -7,9 +7,10 @@ import Button from "@material-ui/core/Button";
 import Link from "@material-ui/core/Link";
 import Grid from "@material-ui/core/Grid";
 import { Box } from "@material-ui/core";
+import { Link as RouterLink } from "react-router-dom";
 
 import { connect } from "react-redux";
-import { signUpUser } from "../manager/auth/authActions";
+import { signUpUser, clearError } from "../manager/auth/authActions";
 
 import {
   validateName,
@@ -36,7 +37,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Signup = ({ signUpUser }) => {
+const Signup = ({
+  signUpUser,
+  error,
+  clearError,
+  isAuthenticated,
+  history,
+  ...rest
+}) => {
   const classes = useStyles();
 
   const INITIAL_STATE = {
@@ -77,6 +85,15 @@ const Signup = ({ signUpUser }) => {
     password2: (password2) =>
       validateConfirmPassword(state.password.value, password2),
   };
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      history.push("/contacts");
+    }
+    if (error) {
+      clearError();
+    }
+  }, [isAuthenticated, error, history]);
 
   const handleInputChange = (e) => {
     setState({
@@ -163,7 +180,11 @@ const Signup = ({ signUpUser }) => {
         <Typography component="h1" variant="h5" align="center">
           Sign up
         </Typography>
-
+        {error && (
+          <Typography variant="subtitle2" color="error" align="center">
+            {error}
+          </Typography>
+        )}
         <form className={classes.form}>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
@@ -259,7 +280,7 @@ const Signup = ({ signUpUser }) => {
       </Box>
       <Grid container justify="center">
         <Grid item>
-          <Link href="#" variant="body2">
+          <Link component={RouterLink} to="/signin" variant="body2">
             Already have an account? Sign in
           </Link>
         </Grid>
@@ -268,4 +289,10 @@ const Signup = ({ signUpUser }) => {
   );
 };
 
-export default connect(null, { signUpUser })(Signup);
+const mapStateToProps = (state) => ({
+  isLoading: state.authState.loading,
+  isAuthenticated: state.authState.isAuthenticated,
+  error: state.authState.error,
+});
+
+export default connect(mapStateToProps, { signUpUser, clearError })(Signup);
