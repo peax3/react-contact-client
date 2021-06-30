@@ -3,7 +3,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
-import Button from "@material-ui/core/Button";
 import Link from "@material-ui/core/Link";
 import Grid from "@material-ui/core/Grid";
 import { Box } from "@material-ui/core";
@@ -13,6 +12,7 @@ import { connect } from "react-redux";
 import { signInUser, clearError } from "../manager/auth/authActions";
 import { validateEmail, validatePassword } from "../helpers/validator";
 import { useEffect } from "react";
+import { ButtonWithPreloader } from "./ButtonWithPreLoader";
 
 const useStyles = makeStyles((theme) => ({
   form: {
@@ -40,6 +40,7 @@ const useStyles = makeStyles((theme) => ({
 const SignIn = ({
   signInUser,
   isAuthenticated,
+  authLoading,
   clearError,
   error,
   history,
@@ -75,6 +76,7 @@ const SignIn = ({
     if (error) {
       clearError();
     }
+    // eslint-disable-next-line
   }, [isAuthenticated, error, history]);
 
   const handleInputChange = (e) => {
@@ -197,16 +199,17 @@ const SignIn = ({
               />
             </Grid>
           </Grid>
-          <Button
+          <ButtonWithPreloader
             type="submit"
             fullWidth
             variant="contained"
             color="primary"
             className={classes.submit}
+            loading={authLoading}
             onClick={handleSubmit}
           >
             Sign In
-          </Button>
+          </ButtonWithPreloader>
         </form>
       </Box>
       <Grid container justify="center">
@@ -225,7 +228,7 @@ const LinkBehaviour = React.forwardRef((props, ref) => {
 });
 
 const mapStateToProps = (state) => ({
-  isLoading: state.authState.loading,
+  authLoading: state.authState.authLoading,
   isAuthenticated: state.authState.isAuthenticated,
   error: state.authState.error,
 });

@@ -18,6 +18,7 @@ import {
   validatePassword,
   validateConfirmPassword,
 } from "../helpers/validator";
+import { ButtonWithPreloader } from "./ButtonWithPreLoader";
 
 const useStyles = makeStyles((theme) => ({
   form: {
@@ -40,6 +41,7 @@ const useStyles = makeStyles((theme) => ({
 const Signup = ({
   signUpUser,
   error,
+  authLoading,
   clearError,
   isAuthenticated,
   history,
@@ -266,16 +268,17 @@ const Signup = ({
               />
             </Grid>
           </Grid>
-          <Button
+          <ButtonWithPreloader
             type="submit"
             fullWidth
             variant="contained"
             color="primary"
             className={classes.submit}
+            loading={authLoading}
             onClick={handleSubmit}
           >
             Sign Up
-          </Button>
+          </ButtonWithPreloader>
         </form>
       </Box>
       <Grid container justify="center">
@@ -290,7 +293,7 @@ const Signup = ({
 };
 
 const mapStateToProps = (state) => ({
-  isLoading: state.authState.loading,
+  authLoading: state.authState.authLoading,
   isAuthenticated: state.authState.isAuthenticated,
   error: state.authState.error,
 });
