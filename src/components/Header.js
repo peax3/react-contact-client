@@ -43,7 +43,7 @@ const Header = ({ handleDrawerToggle, drawerSize, drawerWidth }) => {
           <MenuIcon />
         </IconButton>
         <Typography variant="h6" noWrap>
-          Header component
+          Keep Contacts
         </Typography>
       </Toolbar>
     </AppBar>

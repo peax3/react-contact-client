@@ -1,4 +1,4 @@
-import { makeStyles, Toolbar, Typography } from "@material-ui/core";
+import { makeStyles, Toolbar } from "@material-ui/core";
 import React, { useState } from "react";
 import Contacts from "./contact/Contacts";
 import Header from "./Header";

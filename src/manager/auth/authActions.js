@@ -3,7 +3,6 @@ import {
   AUTHLOADING_TRUE,
   SIGNUP_SUCCESS,
   SIGNIN_SUCCESS,
-  LOADUSER,
   SIGNIN_FAIL,
   SIGNUP_FAIL,
   CLEAR_ERROR,
@@ -19,10 +18,8 @@ export const signInUser = (body) => async (dispatch) => {
         "Content-Type": "application/json",
       },
     });
-
-    dispatch(signInSuccess(res.data.token));
-
     setAuthTokenInHeaders(res.data.token);
+    dispatch(signInSuccess(res.data.token));
   } catch (error) {
     dispatch(signInFail(error.response.data.message));
   }
@@ -63,12 +60,12 @@ const signInFail = (error) => {
   };
 };
 
-const loadUser = (userId) => {
-  return {
-    type: LOADUSER,
-    userId,
-  };
-};
+// const loadUser = (userId) => {
+//   return {
+//     type: LOADUSER,
+//     userId,
+//   };
+// };
 
 const signUpSuccess = (token) => {
   return {
@@ -79,7 +76,7 @@ const signUpSuccess = (token) => {
 
 const signUpFail = (error) => {
   return {
-    type: SIGNIN_FAIL,
+    type: SIGNUP_FAIL,
     error,
   };
 };
