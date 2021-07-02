@@ -1,3 +1,4 @@
+import { setAuthTokenInHeaders } from "../../api/axios";
 import {
   SIGNUP_SUCCESS,
   AUTHLOADING_TRUE,
@@ -20,6 +21,7 @@ const authReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case SIGNIN_SUCCESS: {
       localStorage.setItem("contactToken", action.token);
+      setAuthTokenInHeaders(action.token);
       return {
         ...state,
         token: action.token,
@@ -29,6 +31,7 @@ const authReducer = (state = INITIAL_STATE, action) => {
     }
     case SIGNUP_SUCCESS: {
       localStorage.setItem("contactToken", action.token);
+      setAuthTokenInHeaders(action.token);
       return {
         ...state,
         token: action.token,

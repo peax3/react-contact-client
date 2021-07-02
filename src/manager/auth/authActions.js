@@ -1,4 +1,4 @@
-import axios, { setAuthTokenInHeaders } from "../../api/axios";
+import axios from "../../api/axios";
 import {
   AUTHLOADING_TRUE,
   SIGNUP_SUCCESS,
@@ -10,7 +10,6 @@ import {
 
 export const signInUser = (body) => async (dispatch) => {
   try {
-    setLoadingToTrue();
     dispatch(setLoadingToTrue());
 
     const res = await axios.post("/auth/login", body, {
@@ -18,10 +17,11 @@ export const signInUser = (body) => async (dispatch) => {
         "Content-Type": "application/json",
       },
     });
-    setAuthTokenInHeaders(res.data.token);
+
     dispatch(signInSuccess(res.data.token));
   } catch (error) {
-    dispatch(signInFail(error.response.data.message));
+    const { response } = error;
+    dispatch(signInFail(response.data.message));
   }
 };
 
