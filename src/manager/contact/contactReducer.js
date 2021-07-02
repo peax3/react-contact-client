@@ -1,4 +1,10 @@
-import { GET_CONTACTS, LOADING_CONTACTS_TRUE } from "../constants";
+import {
+  ADD_CONTACT,
+  CONTACT_ERROR,
+  GET_CONTACTS,
+  LOADING_CONTACTS_TRUE,
+} from "../constants";
+import { sortContacts } from "../../helpers/sortArray";
 
 const INITIAL_STATE = {
   contacts: [],
@@ -16,10 +22,25 @@ const contactReducer = (state = INITIAL_STATE, action) => {
         error: null,
       };
     }
+    case ADD_CONTACT: {
+      const contact = action.contact;
+      const sortedContacts = sortContacts([...state.contacts, contact]);
+      console.log({ sortedContacts });
+      return {
+        ...state,
+        contacts: sortedContacts,
+      };
+    }
     case LOADING_CONTACTS_TRUE: {
       return {
         ...state,
         loadingContact: true,
+      };
+    }
+    case CONTACT_ERROR: {
+      return {
+        ...state,
+        error: action.payload,
       };
     }
     default:

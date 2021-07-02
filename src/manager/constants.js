@@ -8,5 +8,6 @@ export const SIGNUP_FAIL = "SIGNUP_FAIL";
 export const CLEAR_ERROR = "CLEAR_ERROR";
 
 export const GET_CONTACTS = "GET_CONTACTS";
+export const ADD_CONTACT = "ADD_CONTACTS";
 export const CONTACT_ERROR = "CONTACT_ERROR";
 export const LOADING_CONTACTS_TRUE = "LOADING_CONTACTS_TRUE";

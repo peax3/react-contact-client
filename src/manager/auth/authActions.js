@@ -42,7 +42,7 @@ export const signUpUser = (body) => async (dispatch) => {
 
 export const clearError = () => async (dispatch) => {
   const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
-  await delay(1000);
+  await delay(5000);
   dispatch({ type: CLEAR_ERROR });
 };
 

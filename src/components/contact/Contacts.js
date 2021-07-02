@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import AddIcon from "@material-ui/icons/Add";
 
 import { ContactCardContainer } from "./ContactCardContainer";
-import { AddContactModal } from "./contactModal/AddContactModal";
+import AddContactModal from "./contactModal/AddContactModal";
 import { DeleteContactDialog } from "./contactModal/DeleteContactDialog";
 import { connect } from "react-redux";
 
@@ -30,9 +30,6 @@ const Contacts = ({ contactsData, loadingContact, getContacts }) => {
     getContacts();
     // eslint-disable-next-line
   }, []);
-
-  console.log({ contactsData });
-  console.log({ loadingContact });
 
   const openDeleteContactDialog = () => {
     setDeleteContactDialog(true);
