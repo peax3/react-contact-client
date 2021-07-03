@@ -34,7 +34,7 @@ export const signOutUser = () => {
 
 export const signUpUser = (body) => async (dispatch) => {
   try {
-    setLoadingToTrue();
+    dispatch(setLoadingToTrue());
     const res = await axios.post("/auth/register", body, {
       headers: {
         "Content-Type": "application/json",
