@@ -8,6 +8,7 @@ import {
   CLEAR_ERROR,
   LOAD_USER_SUCCESS,
   LOAD_USER_FAIL,
+  SIGN_OUT,
 } from "../constants";
 
 export const signInUser = (body) => async (dispatch) => {
@@ -25,6 +26,10 @@ export const signInUser = (body) => async (dispatch) => {
     const { response } = error;
     dispatch(signInFail(response.data.message));
   }
+};
+
+export const signOutUser = () => {
+  return { type: SIGN_OUT };
 };
 
 export const signUpUser = (body) => async (dispatch) => {

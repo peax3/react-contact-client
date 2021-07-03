@@ -10,6 +10,9 @@ import {
   makeStyles,
 } from "@material-ui/core";
 import React from "react";
+import { connect } from "react-redux";
+
+import { signOutUser } from "../manager/auth/authActions";
 
 const useStyles = (props) =>
   makeStyles((theme) => ({
@@ -32,6 +35,7 @@ const SideDrawer = ({
   mobileOpen,
   drawerWidth,
   drawerSize,
+  signOutUser,
 }) => {
   const classes = useStyles({ drawerWidth, drawerSize })();
 
@@ -40,7 +44,7 @@ const SideDrawer = ({
       <div className={classes.toolbar} />
       <Divider />
       <List>
-        <ListItem button>
+        <ListItem button onClick={signOutUser}>
           <ListItemIcon>
             <Icon className="fas fa-sign-out-alt" />
           </ListItemIcon>
@@ -83,4 +87,4 @@ const SideDrawer = ({
   );
 };
 
-export default SideDrawer;
+export default connect(null, { signOutUser })(SideDrawer);

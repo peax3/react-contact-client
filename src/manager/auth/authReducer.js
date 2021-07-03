@@ -1,4 +1,7 @@
-import { setAuthTokenInHeaders } from "../../api/axios";
+import {
+  deleteAuthTokenFromHeaders,
+  setAuthTokenInHeaders,
+} from "../../api/axios";
 import {
   SIGNUP_SUCCESS,
   AUTHLOADING_TRUE,
@@ -8,6 +11,7 @@ import {
   SIGNIN_FAIL,
   LOAD_USER_FAIL,
   LOAD_USER_SUCCESS,
+  SIGN_OUT,
 } from "../constants";
 
 const INITIAL_STATE = {
@@ -38,6 +42,13 @@ const authReducer = (state = INITIAL_STATE, action) => {
         token: action.token,
         isAuthenticated: true,
         authLoading: false,
+      };
+    }
+    case SIGN_OUT: {
+      localStorage.removeItem("contactItem");
+      deleteAuthTokenFromHeaders();
+      return {
+        INITIAL_STATE,
       };
     }
     case LOAD_USER_SUCCESS: {

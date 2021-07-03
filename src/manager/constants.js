@@ -1,5 +1,7 @@
 export const SIGNUP_SUCCESS = "SIGNUP_SUCCESS";
 export const SIGNIN_SUCCESS = "SIGNIN_SUCCESS";
+export const SIGN_OUT = "SIGN_OUT";
+
 export const AUTHLOADING_TRUE = "AUTHLOADING";
 export const LOAD_USER_SUCCESS = "LOAD_USER_SUCCESS";
 export const LOAD_USER_FAIL = "LOAD_USER_FAIL";
