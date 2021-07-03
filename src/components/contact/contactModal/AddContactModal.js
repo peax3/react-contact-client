@@ -57,6 +57,7 @@ const AddContactModal = ({
       const { firstName, lastName, email, phone } = contactToEdit;
       setContactState({ firstName, lastName, email, phone });
     }
+    // eslint-disable-next-line
   }, [inEditMode]);
 
   const { firstName, lastName, email, phone } = contactState;
