@@ -25,7 +25,6 @@ const DeleteContactDialog = ({
   };
 
   const handleAgreeToDelete = () => {
-    console.log({ contactToDelete });
     deleteContact(contactToDelete);
     closeModal();
   };

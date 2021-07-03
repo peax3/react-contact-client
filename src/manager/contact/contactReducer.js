@@ -52,7 +52,6 @@ const contactReducer = (state = INITIAL_STATE, action) => {
       };
     }
     case DELETE_CONTACT: {
-      console.log(action.contactId);
       const contactsLeft = state.contacts.filter(
         (c) => c._id !== action.contactId
       );

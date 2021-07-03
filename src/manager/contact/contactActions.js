@@ -58,7 +58,6 @@ export const updateContact = (contact) => async (dispatch) => {
 };
 
 export const deleteContact = (contactId) => async (dispatch) => {
-  console.log({ contactId });
   try {
     await axios.delete(`/contacts/${contactId}`);
     dispatch({ type: DELETE_CONTACT, contactId });
