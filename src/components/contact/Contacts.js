@@ -4,7 +4,7 @@ import AddIcon from "@material-ui/icons/Add";
 
 import ContactCardContainer from "./ContactCardContainer";
 import AddContactModal from "./contactModal/AddContactModal";
-import { DeleteContactDialog } from "./contactModal/DeleteContactDialog";
+import DeleteContactDialog from "./contactModal/DeleteContactDialog";
 import { connect } from "react-redux";
 
 import { getContacts } from "../../manager/contact/contactActions";
@@ -64,7 +64,7 @@ const Contacts = ({ contactsData, loadingContact, getContacts }) => {
               <ContactCardContainer
                 key={contact._id}
                 contact={contact}
-                handleDelete={openDeleteContactDialog}
+                openDeleteModal={openDeleteContactDialog}
                 openEditModal={OpenAddContactModal}
               />
             );

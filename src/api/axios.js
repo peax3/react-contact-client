@@ -6,6 +6,8 @@ const axiosInstance = axios.create({
 });
 
 export const setAuthTokenInHeaders = (token) => {
+  console.log("called");
+  console.log({ token });
   axiosInstance.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 };
 

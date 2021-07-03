@@ -3,10 +3,11 @@ import {
   SIGNUP_SUCCESS,
   AUTHLOADING_TRUE,
   SIGNIN_SUCCESS,
-  LOADUSER,
   SIGNUP_FAIL,
   CLEAR_ERROR,
   SIGNIN_FAIL,
+  LOAD_USER_FAIL,
+  LOAD_USER_SUCCESS,
 } from "../constants";
 
 const INITIAL_STATE = {
@@ -39,6 +40,15 @@ const authReducer = (state = INITIAL_STATE, action) => {
         authLoading: false,
       };
     }
+    case LOAD_USER_SUCCESS: {
+      setAuthTokenInHeaders(state.token);
+      return {
+        ...state,
+        isAuthenticated: true,
+        authLoading: false,
+      };
+    }
+    case LOAD_USER_FAIL:
     case SIGNIN_FAIL:
     case SIGNUP_FAIL: {
       localStorage.removeItem("contactToken");
@@ -61,12 +71,6 @@ const authReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         authLoading: true,
-      };
-    }
-    case LOADUSER: {
-      return {
-        ...state,
-        user: action.userId,
       };
     }
     default:

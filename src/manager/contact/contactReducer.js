@@ -1,9 +1,12 @@
 import {
   ADD_CONTACT,
+  CLEAR_CONTACT_TO_DELETE,
   CLEAR_EDIT_CONTACT,
   CONTACT_ERROR,
+  DELETE_CONTACT,
   GET_CONTACTS,
   LOADING_CONTACTS_TRUE,
+  SET_CONTACT_TO_DELETE,
   SET_EDIT_CONTACT,
   UPDATE_CONTACT,
 } from "../constants";
@@ -15,6 +18,7 @@ const INITIAL_STATE = {
   error: null,
   inEditMode: false,
   contactToEdit: null,
+  contactToDeleteId: null,
 };
 
 const contactReducer = (state = INITIAL_STATE, action) => {
@@ -47,6 +51,16 @@ const contactReducer = (state = INITIAL_STATE, action) => {
         contacts: sortedContacts,
       };
     }
+    case DELETE_CONTACT: {
+      console.log(action.contactId);
+      const contactsLeft = state.contacts.filter(
+        (c) => c._id !== action.contactId
+      );
+      return {
+        ...state,
+        contacts: contactsLeft,
+      };
+    }
     case LOADING_CONTACTS_TRUE: {
       return {
         ...state,
@@ -65,6 +79,18 @@ const contactReducer = (state = INITIAL_STATE, action) => {
         ...state,
         inEditMode: false,
         contactToEdit: null,
+      };
+    }
+    case SET_CONTACT_TO_DELETE: {
+      return {
+        ...state,
+        contactToDeleteId: action.contact._id,
+      };
+    }
+    case CLEAR_CONTACT_TO_DELETE: {
+      return {
+        ...state,
+        contactToDeleteId: null,
       };
     }
     case CONTACT_ERROR: {

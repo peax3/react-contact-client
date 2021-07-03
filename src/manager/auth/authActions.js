@@ -6,6 +6,8 @@ import {
   SIGNIN_FAIL,
   SIGNUP_FAIL,
   CLEAR_ERROR,
+  LOAD_USER_SUCCESS,
+  LOAD_USER_FAIL,
 } from "../constants";
 
 export const signInUser = (body) => async (dispatch) => {
@@ -53,6 +55,22 @@ const signInSuccess = (token) => {
   };
 };
 
+export const getLoggenInUser = (token) => async (dispatch) => {
+  try {
+    setLoadingToTrue();
+    await axios.get("/auth/me", {
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+    });
+
+    dispatch({ type: LOAD_USER_SUCCESS });
+  } catch (error) {
+    const { response } = error;
+    dispatch(getLoggedUserfailed(response.data.message));
+  }
+};
+
 const signInFail = (error) => {
   return {
     type: SIGNIN_FAIL,
@@ -60,17 +78,17 @@ const signInFail = (error) => {
   };
 };
 
-// const loadUser = (userId) => {
-//   return {
-//     type: LOADUSER,
-//     userId,
-//   };
-// };
-
 const signUpSuccess = (token) => {
   return {
     type: SIGNUP_SUCCESS,
     token,
+  };
+};
+
+const getLoggedUserfailed = (error) => {
+  return {
+    type: LOAD_USER_FAIL,
+    error,
   };
 };
 

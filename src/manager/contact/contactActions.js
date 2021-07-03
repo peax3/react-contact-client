@@ -1,10 +1,13 @@
 import axios from "../../api/axios";
 import {
   ADD_CONTACT,
+  CLEAR_CONTACT_TO_DELETE,
   CLEAR_EDIT_CONTACT,
   CONTACT_ERROR,
+  DELETE_CONTACT,
   GET_CONTACTS,
   LOADING_CONTACTS_TRUE,
+  SET_CONTACT_TO_DELETE,
   SET_EDIT_CONTACT,
   UPDATE_CONTACT,
 } from "../constants";
@@ -52,6 +55,26 @@ export const updateContact = (contact) => async (dispatch) => {
 
     dispatch(contactError(response));
   }
+};
+
+export const deleteContact = (contactId) => async (dispatch) => {
+  console.log({ contactId });
+  try {
+    await axios.delete(`/contacts/${contactId}`);
+    dispatch({ type: DELETE_CONTACT, contactId });
+  } catch (error) {
+    const { response } = error;
+
+    dispatch(contactError(response));
+  }
+};
+
+export const setContactToDelete = (contact) => {
+  return { type: SET_CONTACT_TO_DELETE, contact };
+};
+
+export const clearContactTodelete = () => {
+  return { type: CLEAR_CONTACT_TO_DELETE };
 };
 
 export const setEditContact = (contact) => {

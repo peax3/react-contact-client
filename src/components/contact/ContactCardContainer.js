@@ -5,7 +5,10 @@ import { connect } from "react-redux";
 import { ContactAvatar } from "./ContactAvatar";
 import { ContactDetails } from "./ContactDetails";
 
-import { setEditContact } from "../../manager/contact/contactActions";
+import {
+  setEditContact,
+  setContactToDelete,
+} from "../../manager/contact/contactActions";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -20,10 +23,10 @@ const useStyles = makeStyles((theme) => ({
 
 const ContactCardContainer = ({
   contact,
-  handleDelete,
+  openDeleteModal,
   openEditModal,
-  inEditContactMode,
   setEditContact,
+  setContactToDelete,
 }) => {
   const classes = useStyles();
   const { fullName, email, phone } = contact;
@@ -31,6 +34,11 @@ const ContactCardContainer = ({
   const handleEdit = () => {
     setEditContact(contact);
     openEditModal();
+  };
+
+  const handleDelete = () => {
+    setContactToDelete(contact);
+    openDeleteModal();
   };
 
   return (
@@ -59,6 +67,6 @@ const mapStateToProps = (state) => ({
   inEditContactMode: state.contactState.inEditMode,
 });
 
-export default connect(mapStateToProps, { setEditContact })(
+export default connect(mapStateToProps, { setEditContact, setContactToDelete })(
   ContactCardContainer
 );
