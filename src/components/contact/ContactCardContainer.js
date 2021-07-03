@@ -1,8 +1,11 @@
 import { Button, makeStyles, Paper } from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 import React from "react";
+import { connect } from "react-redux";
 import { ContactAvatar } from "./ContactAvatar";
 import { ContactDetails } from "./ContactDetails";
+
+import { setEditContact } from "../../manager/contact/contactActions";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -15,9 +18,21 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const ContactCardContainer = ({ contact, handleDelete }) => {
+const ContactCardContainer = ({
+  contact,
+  handleDelete,
+  openEditModal,
+  inEditContactMode,
+  setEditContact,
+}) => {
   const classes = useStyles();
   const { fullName, email, phone } = contact;
+
+  const handleEdit = () => {
+    setEditContact(contact);
+    openEditModal();
+  };
+
   return (
     <Paper className={classes.paper}>
       <Grid container>
@@ -32,10 +47,18 @@ export const ContactCardContainer = ({ contact, handleDelete }) => {
         <Button onClick={handleDelete} size="small" color="secondary">
           Delete
         </Button>
-        <Button size="small" color="primary">
+        <Button size="small" color="primary" onClick={handleEdit}>
           Edit
         </Button>
       </Grid>
     </Paper>
   );
 };
+
+const mapStateToProps = (state) => ({
+  inEditContactMode: state.contactState.inEditMode,
+});
+
+export default connect(mapStateToProps, { setEditContact })(
+  ContactCardContainer
+);

@@ -5,9 +5,9 @@ export const sortContacts = (contacts) => {
 };
 
 const contactComparer = (a, b) => {
-  if (a.fullName < b.fullName) {
+  if (a.fullName.toLowerCase() < b.fullName.toLowerCase()) {
     return -1;
-  } else if (a.fullName > b.fullName) {
+  } else if (a.fullName.toLowerCase() > b.fullName.toLowerCase()) {
     return 1;
   } else {
     return 0;

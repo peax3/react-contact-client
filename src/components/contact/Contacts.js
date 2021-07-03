@@ -2,7 +2,7 @@ import { LinearProgress, Fab, makeStyles, Typography } from "@material-ui/core";
 import React, { useState } from "react";
 import AddIcon from "@material-ui/icons/Add";
 
-import { ContactCardContainer } from "./ContactCardContainer";
+import ContactCardContainer from "./ContactCardContainer";
 import AddContactModal from "./contactModal/AddContactModal";
 import { DeleteContactDialog } from "./contactModal/DeleteContactDialog";
 import { connect } from "react-redux";
@@ -65,6 +65,7 @@ const Contacts = ({ contactsData, loadingContact, getContacts }) => {
                 key={contact._id}
                 contact={contact}
                 handleDelete={openDeleteContactDialog}
+                openEditModal={OpenAddContactModal}
               />
             );
           })}

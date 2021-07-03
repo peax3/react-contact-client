@@ -1,9 +1,12 @@
 import axios from "../../api/axios";
 import {
   ADD_CONTACT,
+  CLEAR_EDIT_CONTACT,
   CONTACT_ERROR,
   GET_CONTACTS,
   LOADING_CONTACTS_TRUE,
+  SET_EDIT_CONTACT,
+  UPDATE_CONTACT,
 } from "../constants";
 
 export const getContacts = () => async (dispatch) => {
@@ -33,10 +36,43 @@ export const addContact = (contact) => async (dispatch) => {
   }
 };
 
+export const updateContact = (contact) => async (dispatch) => {
+  const url = `/contacts/${contact._id}`;
+
+  try {
+    const res = await axios.put(url, contact, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    dispatch(updateContactSuccess(res.data.contact));
+  } catch (error) {
+    const { response } = error;
+
+    dispatch(contactError(response));
+  }
+};
+
+export const setEditContact = (contact) => {
+  return { type: SET_EDIT_CONTACT, contact };
+};
+
+export const clearEditContact = () => {
+  return { type: CLEAR_EDIT_CONTACT };
+};
+
 const getContactSuccess = (contacts) => {
   return {
     type: GET_CONTACTS,
     contacts,
+  };
+};
+
+const updateContactSuccess = (contact) => {
+  return {
+    type: UPDATE_CONTACT,
+    contact,
   };
 };
 

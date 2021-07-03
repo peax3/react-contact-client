@@ -14,8 +14,13 @@ import {
   isEmailValidWithRegex,
   isPhoneNumberValid,
 } from "../../../helpers/validator";
-import { addContact } from "../../../manager/contact/contactActions";
+import {
+  addContact,
+  clearEditContact,
+  updateContact,
+} from "../../../manager/contact/contactActions";
 import { connect } from "react-redux";
+import { useEffect } from "react";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -26,7 +31,15 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const AddContactModal = ({ isOpen, handleClose, addContact }) => {
+const AddContactModal = ({
+  isOpen,
+  handleClose,
+  addContact,
+  clearEditContact,
+  inEditMode,
+  contactToEdit,
+  updateContact,
+}) => {
   const classes = useStyles();
 
   const initialContactState = {
@@ -38,6 +51,13 @@ const AddContactModal = ({ isOpen, handleClose, addContact }) => {
 
   const [contactState, setContactState] = useState(initialContactState);
   const [error, setError] = useState([]);
+
+  useEffect(() => {
+    if (inEditMode) {
+      const { firstName, lastName, email, phone } = contactToEdit;
+      setContactState({ firstName, lastName, email, phone });
+    }
+  }, [inEditMode]);
 
   const { firstName, lastName, email, phone } = contactState;
 
@@ -51,6 +71,7 @@ const AddContactModal = ({ isOpen, handleClose, addContact }) => {
   const closeModal = () => {
     setContactState(initialContactState);
     setError([]);
+    clearEditContact();
     handleClose();
   };
 
@@ -62,7 +83,7 @@ const AddContactModal = ({ isOpen, handleClose, addContact }) => {
 
   const handleSubmit = (e) => {
     const errors = [];
-    const trimmedContact = {
+    let trimmedContact = {
       email: email.trim(),
       firstName: firstName.trim(),
       lastName: lastName.trim(),
@@ -93,7 +114,16 @@ const AddContactModal = ({ isOpen, handleClose, addContact }) => {
     RemoveError();
 
     if (errors.length === 0) {
-      addContact(trimmedContact);
+      if (inEditMode) {
+        trimmedContact = {
+          ...trimmedContact,
+          _id: contactToEdit._id,
+        };
+        updateContact(trimmedContact);
+      } else {
+        addContact(trimmedContact);
+      }
+
       closeModal();
     }
   };
@@ -101,7 +131,7 @@ const AddContactModal = ({ isOpen, handleClose, addContact }) => {
   return (
     <Dialog open={isOpen} onClose={closeModal}>
       <DialogTitle id="Add-contact-title" className={classes.title}>
-        Add Contact
+        {!inEditMode ? "Add Contact" : "Edit Contact"}
       </DialogTitle>
 
       <DialogContent>
@@ -172,13 +202,20 @@ const AddContactModal = ({ isOpen, handleClose, addContact }) => {
           Cancel
         </Button>
         <Button onClick={handleSubmit} color="primary">
-          Save
+          {!inEditMode ? "Save" : "Edit"}
         </Button>
       </DialogActions>
     </Dialog>
   );
 };
 
-const mapStateToProps = (state) => ({});
+const mapStateToProps = (state) => ({
+  inEditMode: state.contactState.inEditMode,
+  contactToEdit: state.contactState.contactToEdit,
+});
 
-export default connect(mapStateToProps, { addContact })(AddContactModal);
+export default connect(mapStateToProps, {
+  addContact,
+  clearEditContact,
+  updateContact,
+})(AddContactModal);
